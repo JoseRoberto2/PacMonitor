@@ -1,6 +1,7 @@
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import org.jnetpcap.packet.PcapPacket;
 import org.jnetpcap.packet.PcapPacketHandler;
 
@@ -17,5 +18,5 @@ import org.jnetpcap.packet.PcapPacketHandler;
 public interface PacMonitor extends Remote{
     
     //public static void main(String[] args) throws InterruptedException;
-    public void chama(PcapPacketHandler<String> jpacketHandler ) throws RemoteException;
+    public ArrayList<Integer> chama() throws RemoteException;
 }
