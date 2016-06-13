@@ -23,12 +23,13 @@ public class ClassicPcapExample extends UnicastRemoteObject implements PacMonito
     private Pcap pcap;
     private PcapPacketHandler<String> jpacketHandler;
     ArrayList<Integer> tamanho;
+    public List<PcapIf> alldevs;
     
     public ClassicPcapExample() throws RemoteException{
         
         super();
         
-        List<PcapIf> alldevs = new ArrayList<PcapIf>(); // Will be filled with NICs  
+        alldevs = new ArrayList<PcapIf>(); // Will be filled with NICs  
         StringBuilder errbuf = new StringBuilder(); // For any error msgs  
 
         /**
@@ -52,8 +53,14 @@ public class ClassicPcapExample extends UnicastRemoteObject implements PacMonito
                             : "No description available";
             System.out.printf("#%d: %s [%s]\n", i++, device.getName(), description);
         }
+        
+    }
+    
+    public void selecionaDevice(int index) {
 
-        PcapIf device = alldevs.get(1); // We know we have atleast 1 device  
+        StringBuilder errbuf = new StringBuilder(); // For any error msgs  
+        
+        PcapIf device = alldevs.get(index); // We know we have atleast 1 device  
         System.out
                 .printf("\nChoosing '%s' on your behalf:\n",
                         (device.getDescription() != null) ? device.getDescription()
@@ -115,6 +122,7 @@ public class ClassicPcapExample extends UnicastRemoteObject implements PacMonito
          */
         //int j=0;
         //while(j<=50){
+        tamanho.clear();
         pcap.loop(1, jpacketHandler,"testanto aki");
         //Thread.sleep(1000);
         //j++;
